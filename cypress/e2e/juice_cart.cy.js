@@ -65,7 +65,7 @@ describe('Juice Shop Cart Tests', () => {
         cy.contains('Your Basket').should('be.visible');
       });
   
-      it('TC_C3 - Thêm sản phẩm vào giỏ hàng', () => {
+      it('TC_C3 - Thêm 1 sản phẩm vào giỏ hàng ở trang chủ', () => {
           // Lấy số lượng hiện tại
           var oldQuantity = 0;
           cy.get('button[aria-label="Show the shopping cart"] .mdc-button__label .warn-notification').then(($el) => {
@@ -77,84 +77,91 @@ describe('Juice Shop Cart Tests', () => {
           cy.get('button[aria-label="Add to Basket"]').click();
         });
 
+        // Kiểm tra đã thêm vào giỏ hàng chưa
+        cy.get('#cdk-overlay-3').should('contain.text', 'to basket');
+
+
+        cy.wait(1000);
+
         // Kiểm tra số lượng
         cy.get('button[aria-label="Show the shopping cart"] .mdc-button__label .warn-notification').then(($el) => {
           const newQuantity = parseInt($el.text().trim(), 10);
           expect(newQuantity).to.eq(oldQuantity + 1);
         });
+      });
+      
 
-        // Kiểm tra sản phẩm đã thêm vào giỏ hàng
+      it('TC_C4 - Tăng số lượng sản phẩm trong giỏ hàng', () => {
+        cy.get('button[routerlink="/basket"]').click();
+        var oldQuantity = 0;
         cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
           cy.get('.mat-column-quantity span').invoke('text').then((quantity) => {
-            expect(quantity).to.eq(oldQuantity + 1);
+            oldQuantity = parseInt(quantity, 10);
+          });
+        });
+
+        cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
+          cy.get('.mat-column-quantity button').last().click();
+          cy.wait(1000);
+          cy.get('.mat-column-quantity span').invoke('text').then((quantity) => {
+            expect(parseInt(quantity, 10)).to.eq(oldQuantity + 1);
           });
         });
       });
 
-    // it('TC_C4 - Giảm số lượng sản phẩm trong giỏ hàng', () => {
-    //     cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
-    //       cy.get('button[aria-label="Add to Basket"]').click().click();
-    //     });
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
-    //       cy.get('.mat-column-quantity button').first().click();
-    //       cy.get('.mat-column-quantity span').should('contain.text', '1');
-    //     });
-    //   });
+    it('TC_C5 - Giảm số lượng sản phẩm trong giỏ hàng khi có nhiều hơn 2 sản phẩm', () => {
+      cy.get('button[routerlink="/basket"]').click();
+        // Lấy số lượng hiện tại
+        var oldQuantity = 0;
+        cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
+          cy.get('.mat-column-quantity span').invoke('text').then((quantity) => {
+            oldQuantity = parseInt(quantity, 10);
+          });
+        });
+
+        cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
+          cy.get('.mat-column-quantity button').first().click();
+          cy.wait(1000);
+          cy.get('.mat-column-quantity span').invoke('text').then((quantity) => {
+            expect(parseInt(quantity, 10)).to.eq(oldQuantity - 1);
+          });
+        });
+      });
   
-    //   it('TC_C5 - Xóa sản phẩm khỏi giỏ hàng', () => {
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
-    //       cy.get('.mat-column-remove button').click();
-    //     });
-    //     cy.get('mat-table').should('not.contain.text', 'Apple Juice');
-    //   });
-  
-    //   it('TC_C5 - Thêm nhiều sản phẩm giống nhau vào giỏ', () => {
-    //     cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
-    //       cy.get('button[aria-label="Add to Basket"]').click().click().click();
-    //     });
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
-    //       cy.get('mat-cell').eq(2).should('contain.text', '3'); // quantity
-    //     });
-    //   });
-  
-  
-    //   it('TC_C7 - Giảm về 0 sẽ xóa sản phẩm khỏi giỏ hàng', () => {
-    //     cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
-    //       cy.get('button[aria-label="Add to Basket"]').click();
-    //     });
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
-    //       cy.get('button[aria-label="Decrease Quantity"]').click();
-    //     });
-    //     cy.get('mat-table').should('not.contain.text', 'Apple Juice');
-    //   });
-  
-    //   it('TC_C8 - Giỏ hàng giữ nguyên sau khi reload', () => {
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.reload();
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').should('contain.text', 'Apple Juice');
-    //   });
-  
-    //   it('TC_C9 - Đăng xuất và đăng nhập lại giữ được giỏ hàng', () => {
-    //     cy.get('#navbarAccount').click();
-    //     cy.get('#navbarLogoutButton').click();
-    //     cy.get('#navbarAccount').click();
-    //     cy.get('#navbarLoginButton').click();
-    //     cy.get('#email').type('demo');
-    //     cy.get('#password').type('demo');
-    //     cy.get('#loginButton').click();
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').should('contain.text', 'Apple Juice');
-    //   });
-  
-    //   it('TC_C10 - Giỏ hàng trống hiển thị đúng thông báo', () => {
-    //     cy.get('button[routerlink="/basket"]').click();
-    //     cy.get('mat-table').should('not.exist');
-    //     cy.get('.mat-card').should('contain.text', 'Your basket is empty');
-    //   });
+      it('TC_C6 - Xóa sản phẩm khỏi giỏ hàng', () => {
+        cy.get('button[routerlink="/basket"]').click();
+        cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
+          cy.get('.mat-column-remove button').first().click();
+        });
+        cy.get('mat-table').should('not.contain.text', 'Apple Juice');
+      });
+
+      // checkout
+      it('TC_C7 - Thanh toán thành công', () => {
+        // Thêm sản phẩm 
+        cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
+          cy.get('button[aria-label="Add to Basket"]').click();
+        });
+        cy.get('button[routerlink="/basket"]').click();
+        cy.get('#checkoutButton').click();
+        cy.get('mat-row').contains('Tim Tester').click();
+        
+        cy.get('button[aria-label="Proceed to payment selection"]').click(); 
+
+        
+        cy.get('mat-row').contains('One Day Delivery').click();
+
+        cy.get('button[aria-label="Proceed to delivery method selection"]').click(); 
+
+        cy.get('mat-row').contains('Tim Tester').parents('mat-row').within(() => {
+          cy.get('mat-radio-button').click();
+        });
+
+        cy.get('button[aria-label="Proceed to review"]').click();
+
+        cy.get('button[aria-label="Complete your purchase"]').click();
+
+        cy.get('.confirmation').should('be.visible');
+      });
     });
   });

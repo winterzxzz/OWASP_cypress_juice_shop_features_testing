@@ -16,6 +16,8 @@ describe('Juice Shop Search Tests', () => {
           if ($body.find('button[aria-label="Close Welcome Banner"]').length > 0) {
             cy.get('button[aria-label="Close Welcome Banner"]').click({ force: true }) // đóng banner nếu có
           }
+
+          cy.wait(1000);  
   
           if($body.find('a[aria-label="dismiss cookie message"]').length > 0) {
               cy.get('a[aria-label="dismiss cookie message"]').click({ force: true })
@@ -79,7 +81,7 @@ describe('Juice Shop Search Tests', () => {
 
   
     it('10. Tìm kiếm theo mô tả sản phẩm', () => {
-      cy.get('#mat-input-1').type('carrot{enter}');
+      cy.get('#mat-input-1').type('rabbit {enter}');
       cy.get('.mat-grid-tile').should('contain.text', 'Carrot');
     });
   });
