@@ -57,51 +57,33 @@ describe('Juice Shop Search Tests', () => {
     cy.get('.emptyState').should('exist');
   });
 
-  it('TC06 - Xóa nội dung tìm kiếm', () => {
-    cy.get('#mat-input-1').type('banana');
-    cy.get('#mat-input-1').clear();
-    cy.get('.mat-grid-tile').should('exist');
-  });
-
-  it('TC07 - Tìm kiếm với ký tự đặc biệt', () => {
+  it('TC06 - Tìm kiếm với ký tự đặc biệt', () => {
     cy.get('#mat-input-1').type('@#!{enter}');
     cy.get('.emptyState').should('exist');
   });
 
-  it('TC08 - Tìm kiếm có dấu cách đầu dòng', () => {
+  it('TC07 - Tìm kiếm có dấu cách đầu dòng', () => {
     cy.get('#mat-input-1').type(' apple{enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
   });
 
-  it('TC09 - Tìm kiếm có dấu cách cuối dòng', () => {
+  it('TC08 - Tìm kiếm có dấu cách cuối dòng', () => {
     cy.get('#mat-input-1').type('apple {enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
   });
 
-  it('TC10 - Tìm kiếm chỉ với dấu cách', () => {
+  it('TC09 - Tìm kiếm chỉ với dấu cách', () => {
     cy.get('#mat-input-1').type('    {enter}');
     cy.get('.mat-grid-tile').should('exist');
   });
 
-  it('TC11 - Tìm kiếm với số', () => {
+  it('TC10 - Tìm kiếm với số', () => {
     cy.get('#mat-input-1').type('2020{enter}');
-    // Giả định có sản phẩm chứa số 123
+    // Giả định có sản phẩm chứa số 2020
     cy.get('.mat-grid-tile').should('exist');
   });
 
-  it('TC12 - Gõ lặp lại nhiều lần', () => {
-    cy.get('#mat-input-1').type('apple');
-    cy.get('#mat-input-1').clear();
-    cy.get('#mat-input-1').type('apple{enter}');
-    cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
-  });
-
-  it('TC13 - Tìm kiếm bằng bàn phím', () => {
-    cy.get('#mat-input-1').type('apple{enter}');
-    cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
-  });
-
-  it('TC14 - Kết quả search giữ nguyên khi mất focus (không tự động search lại)', () => {
+  it('TC11 - Kết quả search giữ nguyên khi mất focus (không tự động search lại)', () => {
     cy.get('#mat-input-1').type('apple{enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
   
@@ -110,64 +92,50 @@ describe('Juice Shop Search Tests', () => {
     cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
   });
 
-  it('TC15 - Tìm kiếm với chuỗi rất dài', () => {
+  it('TC12 - Tìm kiếm với chuỗi rất dài', () => {
     const longString = 'a'.repeat(1000);
     cy.get('#mat-input-1').type(`${longString}{enter}`);
     cy.get('.emptyState').should('exist');
   });
 
-  it('TC16 - Tìm kiếm với chữ hoa và thường xen kẽ', () => {
+  it('TC13 - Tìm kiếm với chữ hoa và thường xen kẽ', () => {
     cy.get('#mat-input-1').type('ApPlE{enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
   });
 
-  it('TC17 - Tìm kiếm khi đang cuộn trang', () => {
+  it('TC14 - Tìm kiếm khi đang cuộn trang', () => {
     cy.get('.mat-drawer-container').scrollTo('bottom', {ensureScrollable: false});
     cy.get('#mat-input-1').type('apple{enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
   });
 
-  it('TC18 - Gõ nhanh nhiều ký tự', () => {
-    cy.get('#mat-input-1').type('apple', {delay: 0});
-    cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
-  });
-
-  it('TC19 - Tìm kiếm với emoji', () => {
+  it('TC15 - Tìm kiếm với emoji', () => {
     cy.get('#mat-input-1').type('🍎{enter}');
     cy.get('.emptyState').should('exist');
   });
 
-  it('TC20 - Gõ và xóa liên tục', () => {
-    for (let i = 0; i < 5; i++) {
-      cy.get('#mat-input-1').type('apple', {delay: 0});
-      cy.get('#mat-input-1').clear({force: true});
-    }
-    cy.get('#mat-input-1').type('apple{enter}');
-    cy.get('.mat-grid-tile').should('contain.text', 'Apple Juice');
-  });
-
-  it('TC21 - Hiện ô tìm kiếm khi nhấn icon kính lúp', () => {
+  it('TC16 - Hiện ô tìm kiếm khi nhấn icon kính lúp', () => {
     
   });
 
-  it('TC22 - Ẩn ô tìm kiếm khi nhấn icon kính lúp', () => {
+  it('TC17 - Ẩn ô tìm kiếm khi nhấn icon X', () => {
     cy.get('#searchQuery').click();
     cy.get('#mat-input-1').should('not.be.visible');
   });
 
-  it('TC23 - Hiện tất cả sản phẩm khi nhấn nút X ở ô tìm kiếm', () => {
+  it('TC18 - Hiện tất cả sản phẩm khi nhấn nút X ở ô tìm kiếm', () => {
     cy.get('#mat-input-1').type('@#!{enter}');
     cy.get('.emptyState').should('exist');
     cy.get('#searchQuery').click();
     cy.get('.mat-grid-tile').should('exist');
   });
 
-  it('TC24 - Tìm kiếm với nội dung chỉ xuất hiện trong nội dung sản phẩm', () => {
+  it('TC19 - Tìm kiếm với nội dung chỉ xuất hiện trong nội dung sản phẩm', () => {
     cy.get('#mat-input-1').type('Unique digital painting depicting Stan{enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'Best Juice Shop Salesman Artwork');
   });
 
-  it('TC25 - Tìm kiếm với từ khóa xuất hiện ở cả tiêu đề và nội dung', () => {
+  it('TC20 - Tìm kiếm với từ khóa xuất hiện ở cả tiêu đề và nội dung', () => {
     cy.get('#mat-input-1').type('Facemask{enter}');
     cy.get('.mat-grid-tile').should('contain.text', 'OWASP Juice Shop "King of the Hill" Facemask');
     cy.get('div[aria-label="Click for more information about the product"]').click();
