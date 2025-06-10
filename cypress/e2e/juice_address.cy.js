@@ -6,7 +6,7 @@ describe('Address Form Validation - OWASP Juice Shop', () => {
 
         cy.get('body').then(($body) => {
             if ($body.find('.cdk-overlay-backdrop').length) {
-                cy.get('.cdk-overlay-backdrop').click({ force: true });
+                    cy.get('.cdk-overlay-backdrop').click({ force: true });
             }
             if ($body.find('.close-dialog').length) {
                 cy.get('.close-dialog').click({ force: true });

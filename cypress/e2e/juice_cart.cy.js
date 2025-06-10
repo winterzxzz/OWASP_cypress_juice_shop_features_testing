@@ -222,8 +222,26 @@ describe('Juice Shop Cart Tests', () => {
       });
     });
 
+    it('TC_08 - Giảm số lượng sản phẩm xuống 0 thì xoá sản phẩm khỏi giỏ hàng', () => {
+      // Thêm sản phẩm 
+      cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
+        cy.get('button[aria-label="Add to Basket"]').click();
+      });
 
-    it('TC_C8 - Xóa một sản phẩm sản phẩm khỏi giỏ hàng', () => {
+      cy.get('button[routerlink="/basket"]').click();
+      cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
+        cy.get('.mat-column-quantity button').first().click();
+        cy.wait(1000);
+      });
+
+      cy.get('mat-table').contains('Apple Juice').parents('mat-row').within(() => {
+        cy.get('.mat-column-quantity span').invoke('text').then((quantity) => {
+          expect(parseInt(quantity, 10)).to.eq(0);
+        });
+      });
+    })
+
+    it('TC_C9 - Xóa một sản phẩm sản phẩm khỏi giỏ hàng', () => {
       // Thêm sản phẩm 
       cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
         cy.get('button[aria-label="Add to Basket"]').click();
@@ -236,7 +254,7 @@ describe('Juice Shop Cart Tests', () => {
       cy.get('mat-table').should('not.contain.text', 'Apple Juice');
     });
 
-    it('TC_C9 - Cập nhật tổng tiền sau khi tăng số lượng sản phẩm', () => {
+    it('TC_C10 - Cập nhật tổng tiền sau khi tăng số lượng sản phẩm', () => {
       // Thêm sản phẩm 
       cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
         cy.get('button[aria-label="Add to Basket"]').click();
@@ -267,7 +285,7 @@ describe('Juice Shop Cart Tests', () => {
       });
     });
 
-    it('TC_C10 - Cập nhật tổng tiền sau khi giảm số lượng sản phẩm', () => {
+    it('TC_C11 - Cập nhật tổng tiền sau khi giảm số lượng sản phẩm', () => {
       cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
         for (let i = 0; i < 2; i++) {
           cy.get('button[aria-label="Add to Basket"]').click();
@@ -302,7 +320,7 @@ describe('Juice Shop Cart Tests', () => {
     });
 
 
-    it('TC_C11 - Cập nhật tổng tiền sau khi xóa tất cả sản phẩm', () => {
+    it('TC_C12 - Cập nhật tổng tiền sau khi xóa tất cả sản phẩm', () => {
       // Thêm sản phẩm 
       cy.get('mat-card').contains('Banana Juice').parents('mat-card').within(() => {
         cy.get('button[aria-label="Add to Basket"]').click();
@@ -331,18 +349,7 @@ describe('Juice Shop Cart Tests', () => {
         expect(parseFloat(totalPrice.split(' ')[2].replace('¤', ''))).to.eq(0);
       });
     });
-
-    // it('TC_C12 - Checkout - tạo địa chỉ nếu chưa có địa chỉ nào', () => {
-    //   // Thêm sản phẩm 
-    //   cy.get('mat-card').contains('Apple Juice').parents('mat-card').within(() => {
-    //     cy.get('button[aria-label="Add to Basket"]').click();
-    //   });
-    //   cy.get('button[routerlink="/basket"]').click();
-    //   cy.wait(1000);
-    //   cy.get('#checkoutButton').click({ force: true });
-    //   cy.get('mat-row').should('not.exist');
-    //   cy.get('button[aria-label="Add a new address"]').click();
-    // });    
+ 
 
     // checkout
     it('TC_C13 - Thanh toán thành công', () => {
