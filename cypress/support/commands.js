@@ -179,6 +179,17 @@ Cypress.Commands.add('openAddNewCard', () => {
     cy.wait(1000);
 });
 
+// open add coupon
+Cypress.Commands.add('openAddCoupon', () => {
+    cy.get('mat-expansion-panel').eq(1).click();
+    cy.wait(1000);
+});
+
+// check payment success
+Cypress.Commands.add('checkPaymentSuccess', () => {
+    cy.get('.confirmation').should('contain', 'Thank you for your purchase!');
+});
+
 // fill form add new card
 Cypress.Commands.add('fillFormAddNewCard', (
     name,
@@ -186,12 +197,75 @@ Cypress.Commands.add('fillFormAddNewCard', (
     expiryMonth,
     expiryYear,
 ) => {
-    cy.get('mat-expansion-panel').first().find('mat-form-field').eq(0).find('input').type(name);
-    cy.get('mat-expansion-panel').first().find('mat-form-field').eq(1).find('input').type(cardNumber);
-    cy.get('mat-expansion-panel').first().find('mat-form-field').eq(2).find('select').select(expiryMonth);
-    cy.get('mat-expansion-panel').first().find('mat-form-field').eq(3).find('select').select(expiryYear);
+    cy.get('mat-expansion-panel').first().within(() => {
+        // Name Field
+        if (name) {
+            cy.get('mat-form-field').eq(0).find('input').type(name);
+        } else {
+            cy.get('mat-form-field').eq(0).find('input').click().blur();
+        }
+
+        // Card Number Field
+        if (cardNumber) {
+            cy.get('mat-form-field').eq(1).find('input').type(cardNumber);
+        } else {
+            cy.get('mat-form-field').eq(1).find('input').click().blur();
+        }
+
+        // Expiry Month Field
+        if (expiryMonth) {
+            cy.get('mat-form-field').eq(2).find('select').select(expiryMonth);
+        } else {
+            cy.get('mat-form-field').eq(2).find('select').focus().blur();
+        }
+
+        // Expiry Year Field
+        if (expiryYear) {
+            cy.get('mat-form-field').eq(3).find('select').select(expiryYear);
+        } else {
+            cy.get('mat-form-field').eq(3).find('select').focus().blur();
+        }
+    });
 });
 
+// fill form add coupon
+Cypress.Commands.add('fillFormAddCoupon', (couponCode) => {
+        const input = (placeholder, value) => {
+        const el = cy.get(`input[placeholder="${placeholder}"]`);
+        if (value === '') {
+            el.click().blur(); // focus rồi blur để hiện lỗi
+        } else {
+            el.type(value);
+        }
+    };
+
+    input('Please enter your coupon code', couponCode);
+});
+
+// redeem coupon
+Cypress.Commands.add('redeemCoupon', () => {
+    cy.get('#applyCouponButton').click();
+    cy.wait(1000);
+});
+
+// check redeem coupon is enabled
+Cypress.Commands.add('checkRedeemCoupon', (isTrue) => {
+    if (isTrue) {
+        cy.get('#applyCouponButton').should('be.enabled');
+    } else {
+        cy.get('#applyCouponButton').should('not.be.enabled');
+    }
+});
+
+// check error message coupon
+Cypress.Commands.add('checkErrorMessageCoupon', (errorMessage) => {
+    cy.get('.error').should('contain', errorMessage);
+});
+
+// check success message coupon
+Cypress.Commands.add('checkSuccessMessageCoupon', (successMessage) => {
+    cy.get('.confirmation').should('contain', successMessage);
+});
 
 // fill form add new address
 Cypress.Commands.add('fillFormAddNewAddress', (
