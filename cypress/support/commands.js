@@ -24,6 +24,48 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+
+// close dialog and banner
+Cypress.Commands.add('closeDialogAndBanner', () => {
+    cy.get('body').then(($body) => {
+        if ($body.find('.cdk-overlay-backdrop').length > 0) {
+            cy.get('.cdk-overlay-backdrop', { timeout: 5000 }).first().click({ force: true });
+        }
+        if ($body.find('.close-dialog').length > 0) {
+            cy.get('.close-dialog', { timeout: 5000 }).first().click({ force: true });
+        }
+        // if ($body.find('button[aria-label="Close Welcome Banner"]').length > 0) {
+        //     cy.get('button[aria-label="Close Welcome Banner"]', { timeout: 5000 }).first().click({ force: true });
+        // }
+
+        if ($body.find('a[aria-label="dismiss cookie message"]').length > 0) {
+            cy.get('a[aria-label="dismiss cookie message"]', { timeout: 5000 }).first().click({ force: true });
+        }
+    });
+});
+
+
+// login
+Cypress.Commands.add('login', (email, password) => {
+    cy.get('#navbarAccount').click({ force: true });
+    cy.get('#navbarLoginButton').click();
+    cy.get('#email').type(email);
+    cy.get('#password').type(password);
+    cy.get('#loginButton').click();
+    cy.wait(1000);
+    cy.contains('Your Basket').should('be.visible');
+});
+
+// go to home page
+Cypress.Commands.add('goToHomePage', () => {
+    cy.get('button[aria-label="Back to homepage"]').click();
+    cy.wait(1000);
+});
+
+
+
+
+
 // get cart quantity
 Cypress.Commands.add('getCartQuantity', () => {
     return cy.get('button[aria-label="Show the shopping cart"] .mdc-button__label .warn-notification')
@@ -149,13 +191,19 @@ Cypress.Commands.add('checkSubmitFormAddNewAddress', (isTrue) => {
         cy.get('#submitButton')
             .scrollIntoView()
             .should('be.visible')  // optional but recommended
-            .should('be.disabled');  // safer than 'be.enabled' in Angular context
+            .should('be.enabled');  // safer than 'be.enabled' in Angular context
     } else {
         cy.get('#submitButton')
             .scrollIntoView()
             .should('be.visible')  // optional but recommended
             .should('not.be.enabled');  // safer than 'be.enabled' in Angular context
     }
+});
+
+// submit form add new address
+Cypress.Commands.add('submitFormAddNewAddress', () => {
+    cy.get('#submitButton').click();
+    cy.wait(1000);
 });
 
 // check submit form add new card is enabled
@@ -230,7 +278,7 @@ Cypress.Commands.add('fillFormAddNewCard', (
 
 // fill form add coupon
 Cypress.Commands.add('fillFormAddCoupon', (couponCode) => {
-        const input = (placeholder, value) => {
+    const input = (placeholder, value) => {
         const el = cy.get(`input[placeholder="${placeholder}"]`);
         if (value === '') {
             el.click().blur(); // focus rồi blur để hiện lỗi
@@ -278,20 +326,23 @@ Cypress.Commands.add('fillFormAddNewAddress', (
     state
 ) => {
     const input = (placeholder, value) => {
-        const el = cy.get(`input[placeholder="${placeholder}"]`);
+        const selector = `input[placeholder="${placeholder}"]`;
+
         if (value === '') {
-            el.click().blur(); // focus rồi blur để hiện lỗi
+            cy.get(selector).click().blur(); // trigger validation
         } else {
-            el.type(value);
+            cy.get(selector).clear().type(value);
         }
     };
+
+
 
     const textarea = (placeholder, value) => {
         const el = cy.get(`textarea[placeholder="${placeholder}"]`);
         if (value === '') {
             el.click().blur(); // focus rồi blur để hiện lỗi
         } else {
-            el.type(value);
+            el.clear().type(value);
         }
     };
 
@@ -316,9 +367,9 @@ Cypress.Commands.add('checkErrorMessage', (errorMessage) => {
 // check input address value length is less than 160
 Cypress.Commands.add('checkInputAddressValueLength', (address) => {
     cy.get('textarea[placeholder="Please provide an address."]')
-    .type(address)
-    .invoke('val')
-    .should('have.length.at.most', 160);
+        .type(address)
+        .invoke('val')
+        .should('have.length.at.most', 160);
 });
 
 
@@ -364,9 +415,9 @@ Cypress.Commands.add('deleteProductFromCart', (productName) => {
 
 // delete all products from cart
 Cypress.Commands.add('deleteAllProductsFromCart', () => {
-    cy.get('mat-row').then($rows => {
-        if ($rows.length > 0) {
-            cy.wrap($rows).each(() => {
+    cy.get('body').then($body => {
+        if ($body.find('.mdc-data-table__row').length > 0) {
+            cy.get('.mdc-data-table__row').each(() => {
                 cy.get('.mat-column-remove button').first().click();
             });
         }
