@@ -444,3 +444,58 @@ Cypress.Commands.add('getTotalPrice', () => {
     });
 });
 
+
+
+// open search input
+Cypress.Commands.add('openSearchInput', () => {
+    cy.get('#searchQuery').click();
+    cy.get('#mat-input-1').should('be.visible');
+});
+
+// search product
+Cypress.Commands.add('searchProduct', (productName) => {
+    cy.get('#mat-input-1').type(productName + '{enter}');
+});
+
+
+// check product is displayed
+Cypress.Commands.add('checkProductIsDisplayed', (productName) => {
+    cy.get('.mat-grid-tile').should('contain.text', productName);
+});
+
+
+// check only one product is displayed
+Cypress.Commands.add('checkOnlyOneProductIsDisplayed', (productName) => {
+    cy.get('.mat-grid-tile').should('contain.text', productName)
+        .and('have.length', 1);
+});
+
+
+// check empty state is displayed
+Cypress.Commands.add('checkEmptyStateIsDisplayed', () => {
+    cy.get('.emptyState').should('be.visible');
+});
+
+// hide search input
+Cypress.Commands.add('hideSearchInput', () => {
+    cy.get('#searchQuery').click();
+    cy.get('#mat-input-1').should('not.be.visible');
+});
+
+// open detail product
+Cypress.Commands.add('openDetailProduct', (productName) => {
+    cy.get('.mat-grid-tile').first().click();
+    cy.get('.mdc-dialog__content').should('contain.text', productName);
+});
+
+
+// clear search input
+Cypress.Commands.add('clearSearchInput', () => {
+    cy.get('#mat-input-1').clear();
+});
+
+// check is hidden search input and empty
+Cypress.Commands.add('checkIsHiddenSearchInputAndEmpty', () => {
+    cy.get('#mat-input-1').should('not.be.visible');
+    cy.get('#mat-input-1').should('have.value', '');
+});
