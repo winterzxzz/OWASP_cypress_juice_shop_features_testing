@@ -317,55 +317,60 @@ Cypress.Commands.add('checkSuccessMessageCoupon', (successMessage) => {
 
 // fill form add new address
 Cypress.Commands.add('fillFormAddNewAddress', (
-      country,
-      name,
-      mobileNumber,
-      zipCode,
-      address,
-      city,
-      state
-  ) => {
-      const input = (placeholder, value) => {
-          const selector = `input[placeholder="${placeholder}"]`;
-  
-          if (value === '') {
-              cy.get(selector).click().blur(); // trigger validation
-          } else {
-              if (placeholder === 'Please provide a mobile number.') {
-                // tel
-                  cy.get(selector)
-                  .invoke('attr', 'type', 'tel') // ép đổi type
-                  .clear()
-                  .type(value);    // để kích hoạt validate
-              } else {
-                  cy.get(selector)
-                      .clear()
-                      .type(value);
-              }
-          }
-      };
-  
-      const textarea = (placeholder, value) => {
-          const el = cy.get(`textarea[placeholder="${placeholder}"]`);
-          if (value === '') {
-              el.click().blur(); // trigger validation
-          } else {
-              el.clear().type(value);
-          }
-      };
-  
-      // Gọi hàm điền vào các trường
-      input('Please provide a country.', country);
-      input('Please provide a name.', name);
-      input('Please provide a mobile number.', mobileNumber);
-      input('Please provide a ZIP code.', zipCode);
-      textarea('Please provide an address.', address);
-      input('Please provide a city.', city);
-  
-      if (state !== undefined && state !== null) {
-          input('Please provide a state.', state);
-      }
-  }); 
+    country,
+    name,
+    mobileNumber,
+    zipCode,
+    address,
+    city,
+    state
+) => {
+    const input = (placeholder, value) => {
+        const selector = `input[placeholder="${placeholder}"]`;
+
+        if (value === '') {
+            cy.get(selector).click().blur(); // trigger validation
+        } else {
+            if (placeholder === 'Please provide a mobile number.') {
+                if (value.includes('+') || value.includes('-') || value.includes('.')) {
+                    cy.get(selector)
+                        .invoke('attr', 'type', 'tel')
+                        .clear()
+                        .type(value);
+                } else {
+                    cy.get(selector)
+                        .clear()
+                        .type(value);
+                }
+            } else {
+                cy.get(selector)
+                    .clear()
+                    .type(value);
+            }
+        }
+    };
+
+    const textarea = (placeholder, value) => {
+        const el = cy.get(`textarea[placeholder="${placeholder}"]`);
+        if (value === '') {
+            el.click().blur(); // trigger validation
+        } else {
+            el.clear().type(value);
+        }
+    };
+
+    // Gọi hàm điền vào các trường
+    input('Please provide a country.', country);
+    input('Please provide a name.', name);
+    input('Please provide a mobile number.', mobileNumber);
+    input('Please provide a ZIP code.', zipCode);
+    textarea('Please provide an address.', address);
+    input('Please provide a city.', city);
+
+    if (state !== undefined && state !== null) {
+        input('Please provide a state.', state);
+    }
+});
 
 // check error message
 Cypress.Commands.add('checkErrorMessage', (errorMessage) => {
