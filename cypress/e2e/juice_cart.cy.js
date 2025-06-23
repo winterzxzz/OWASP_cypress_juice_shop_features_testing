@@ -233,7 +233,25 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a country.');
     // });
 
-    // it('TC17 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập name', () => {
+      it('TC17 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập country là kí tự đặc biệt', () => {
+      cy.addProductToCart('Banana Juice');
+      cy.goToCartPage();
+      cy.goToSelectAddress();
+      cy.goToAddNewAddress();
+      cy.fillFormAddNewAddress(
+        '@@#$%#(*$@',
+        formNewAddressData.name,
+        formNewAddressData.mobileNumber,
+        formNewAddressData.zipCode,
+        formNewAddressData.address,
+        formNewAddressData.city,
+        formNewAddressData.state
+      );
+
+        cy.checkTextShouldBeEmptyOfAddressForm('Please provide a country.');
+    });
+
+    // it('TC18 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập name', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -253,7 +271,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a name.');
     // });
 
-    // it('TC18 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập mobile number', () => {
+    // it('TC19 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập mobile number', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -274,7 +292,7 @@ describe('Juice Shop Cart Tests', () => {
     // });
 
 
-    // it('TC19 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number quá ngắn', () => {
+    // it('TC20 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number quá ngắn', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -294,7 +312,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Mobile number must');
     // });
 
-    // it('TC20 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number đúng tối thiểu', () => {
+    // it('TC21 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number đúng tối thiểu', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -312,7 +330,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSubmitFormAddNewAddress(true);
     // });
 
-    // it('TC21 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number trung bình', () => {
+    // it('TC22 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number trung bình', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -330,7 +348,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSubmitFormAddNewAddress(true);
     // });
 
-    // it('TC22 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number cận tối đa', () => {
+    // it('TC23 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number cận tối đa', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -348,7 +366,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSubmitFormAddNewAddress(true);
     // });
 
-    // it('TC23 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number đúng tối đa', () => {
+    // it('TC24 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number đúng tối đa', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -366,7 +384,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSubmitFormAddNewAddress(true);
     // });
 
-    // it('TC24 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number quá dài', () => {
+    // it('TC25 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài mobile number quá dài', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -385,7 +403,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Mobile number must');
     // });
 
-    // it('TC25 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập mobile number với ký tự . ở cuối', () => {
+    // it('TC26 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập mobile number với ký tự . ở cuối', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -404,7 +422,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Mobile number');
     // });
 
-    // it('TC26 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập mobile number chứa các kí tự chữ', () => {
+    // it('TC27 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập mobile number chứa các kí tự chữ', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -423,7 +441,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Mobile number');
     // });
 
-    // it('TC27 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập mobile number với ký tự + ở đầu', () => {
+    // it('TC28 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập mobile number với ký tự + ở đầu', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -444,7 +462,7 @@ describe('Juice Shop Cart Tests', () => {
 
     
 
-    // it('TC28 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập zip code', () => {
+    // it('TC29 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập zip code', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -462,7 +480,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a ZIP code.');
     // });
 
-    // it('TC29 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập zip code với các kí tự đặc biệt', () => {
+    // it('TC30 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập zip code với các kí tự đặc biệt', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -480,7 +498,25 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a ZIP code.');
     // });
 
-    // it('TC30 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập address', () => {
+      it('TC31 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập zip code với các kí tự chữ', () => {
+      cy.addProductToCart('Banana Juice');
+      cy.goToCartPage();
+      cy.goToSelectAddress();
+      cy.goToAddNewAddress();
+      cy.fillFormAddNewAddress(
+        formNewAddressData.country,
+        formNewAddressData.name,
+        formNewAddressData.mobileNumber,
+        'winter',
+        formNewAddressData.address,
+        formNewAddressData.city,
+        formNewAddressData.state
+      );
+
+      cy.checkTextShouldBeEmptyOfAddressForm('Please provide a ZIP code.');
+    });
+
+    // it('TC32 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập address', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -498,7 +534,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide an address.');
     // });
 
-    // it('TC31 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài address < 160', () => {
+    // it('TC33 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài address < 160', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -516,7 +552,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSubmitFormAddNewAddress(true);
     // });
 
-    // it('TC32 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài address > 160', () => {
+    // it('TC34 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập độ dài address > 160', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -534,7 +570,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkInputAddressValueLength(longAddress);
     // });
 
-    // it('TC33 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập city', () => {
+    // it('TC35 - Kiểm thử nhập địa chỉ mua hàng mới mà không nhập city', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
@@ -552,18 +588,17 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a city.');
     // });
 
-    // it('TC34 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập country là khoảng trắng', () => {
+    // it('TC36 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập country là khoảng trắng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
     //   cy.goToAddNewAddress();
-    //   const longAddress = 'a'.repeat(161);
     //   cy.fillFormAddNewAddress(
     //     ' ',
     //     formNewAddressData.name,
     //     formNewAddressData.mobileNumber,
     //     formNewAddressData.zipCode,
-    //     longAddress,
+    //     formNewAddressData.address,
     //     formNewAddressData.city,
     //     formNewAddressData.state
     //   );
@@ -573,18 +608,17 @@ describe('Juice Shop Cart Tests', () => {
 
     
 
-    // it('TC35 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập name là khoảng trắng', () => {
+    // it('TC37 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập name là khoảng trắng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
     //   cy.goToAddNewAddress();
-    //   const longAddress = 'a'.repeat(161);
     //   cy.fillFormAddNewAddress(
     //     formNewAddressData.country,
     //     ' ',
     //     formNewAddressData.mobileNumber,
     //     formNewAddressData.zipCode,
-    //     longAddress,
+    //     formNewAddressData.address,
     //     formNewAddressData.city,
     //     formNewAddressData.state
     //   );
@@ -593,18 +627,17 @@ describe('Juice Shop Cart Tests', () => {
     // });
 
 
-    // it('TC36 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập zipcode là khoảng trắng', () => {
+    // it('TC38 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập zipcode là khoảng trắng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
     //   cy.goToAddNewAddress();
-    //   const longAddress = 'a'.repeat(161);
     //   cy.fillFormAddNewAddress(
     //     formNewAddressData.country,
     //     formNewAddressData.name,
     //     formNewAddressData.mobileNumber,
     //     ' ',
-    //     longAddress,
+    //     formNewAddressData.address,
     //     formNewAddressData.city,
     //     formNewAddressData.state
     //   );
@@ -612,12 +645,11 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a ZIP code.');
     // });
 
-    // it('TC37 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập address là khoảng trắng', () => {
+    // it('TC39 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập address là khoảng trắng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
     //   cy.goToAddNewAddress();
-    //   const longAddress = 'a'.repeat(161);
     //   cy.fillFormAddNewAddress(
     //     formNewAddressData.country,
     //     formNewAddressData.name,
@@ -631,12 +663,11 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide an address.');
     // });
 
-    //   it('TC38 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập city là khoảng trắng', () => {
+    //   it('TC40 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập city là khoảng trắng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   cy.goToSelectAddress();
     //   cy.goToAddNewAddress();
-    //   const longAddress = 'a'.repeat(161);
     //   cy.fillFormAddNewAddress(
     //     formNewAddressData.country,
     //     formNewAddressData.name,
@@ -650,7 +681,43 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a city.');
     // });
 
-    // it('TC39 - Kiểm thử phương thức giao hàng khi mua hàng', () => {
+          it('TC41 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập city là kí tự đặc biệt', () => {
+      cy.addProductToCart('Banana Juice');
+      cy.goToCartPage();
+      cy.goToSelectAddress();
+      cy.goToAddNewAddress();
+      cy.fillFormAddNewAddress(
+        formNewAddressData.country,
+        formNewAddressData.name,
+        formNewAddressData.mobileNumber,
+        formNewAddressData.zipCode,
+        formNewAddressData.address,
+        '@@#$%#(*$@',
+        formNewAddressData.state
+      );
+
+      cy.checkTextShouldBeEmptyOfAddressForm('Please provide a city.');
+    });
+
+    it('TC42 - Kiểm thử nhập địa chỉ mua hàng mới mà nhập state là kí tự đặc biệt', () => {
+      cy.addProductToCart('Banana Juice');
+      cy.goToCartPage();
+      cy.goToSelectAddress();
+      cy.goToAddNewAddress();
+      cy.fillFormAddNewAddress(
+        formNewAddressData.country,
+        formNewAddressData.name,
+        formNewAddressData.mobileNumber,
+        formNewAddressData.zipCode,
+        formNewAddressData.address,
+        formNewAddressData.city,
+        '@@#$%#(*$@',
+      );
+
+      cy.checkTextShouldBeEmptyOfAddressForm('Please provide a state.');
+    });
+
+    // it('TC43 - Kiểm thử phương thức giao hàng khi mua hàng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -663,7 +730,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkGoToSelectPaymentMethod();
     // });
 
-    // it('TC40 - Kiểm thử phương thức thanh toán khi mua hàng', () => {
+    // it('TC44 - Kiểm thử phương thức thanh toán khi mua hàng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -680,7 +747,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkGoToOrderSummary();
     // });
 
-    // it('TC41 - Kiểm thử thêm thẻ thanh toán mà nhập đầy đủ thông tin', () => {
+    // it('TC45 - Kiểm thử thêm thẻ thanh toán mà nhập đầy đủ thông tin', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -705,7 +772,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkOverlayPaneWithText(`Your card ending with ${formNewCardData.cardNumber.slice(-4)}`);
     // });
 
-    // it('TC42 - Kiểm thử thêm thẻ thanh toán mà không nhập Name', () => {
+    // it('TC46 - Kiểm thử thêm thẻ thanh toán mà không nhập Name', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -728,7 +795,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please provide a name.');
     // });
 
-    // it('TC43 - Kiểm thử thêm thẻ thanh toán mà không nhập Card Number', () => {
+    // it('TC47 - Kiểm thử thêm thẻ thanh toán mà không nhập Card Number', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -751,7 +818,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please enter your card number.');
     // });
 
-    // it('TC44 - Kiểm thử thêm thẻ thanh toán mà không nhập Expiry Month', () => {
+    // it('TC48 - Kiểm thử thêm thẻ thanh toán mà không nhập Expiry Month', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -774,53 +841,53 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please enter an expiry month.');
     // });
 
-    it('TC45 - Kiểm thử thêm thẻ thanh toán mà không nhập Expiry Year', () => {
-      cy.addProductToCart('Banana Juice');
-      cy.goToCartPage();
-      // chọn địa chỉ
-      cy.goToSelectAddress();
-      cy.selectAddress('Tim Tester');
-      // chọn phương thức giao hàng
-      cy.checkGoToSelectDeliveryMethod();
-      cy.goToSelectDeliveryMethod();
-      cy.selectDeliveryMethod('One Day Delivery');
-      cy.checkGoToSelectPaymentMethod();
-      cy.goToSelectPaymentMethod();
-      // chọn phương thức thanh toán
-      cy.openAddNewCard();
-      cy.fillFormAddNewCard(
-        formNewCardData.name,
-        formNewCardData.cardNumber,
-        formNewCardData.expiryMonth,
-        ''
-      );
-      cy.checkErrorMessage('Please enter an expiry year.');
-    });
+    // it('TC49 - Kiểm thử thêm thẻ thanh toán mà không nhập Expiry Year', () => {
+    //   cy.addProductToCart('Banana Juice');
+    //   cy.goToCartPage();
+    //   // chọn địa chỉ
+    //   cy.goToSelectAddress();
+    //   cy.selectAddress('Tim Tester');
+    //   // chọn phương thức giao hàng
+    //   cy.checkGoToSelectDeliveryMethod();
+    //   cy.goToSelectDeliveryMethod();
+    //   cy.selectDeliveryMethod('One Day Delivery');
+    //   cy.checkGoToSelectPaymentMethod();
+    //   cy.goToSelectPaymentMethod();
+    //   // chọn phương thức thanh toán
+    //   cy.openAddNewCard();
+    //   cy.fillFormAddNewCard(
+    //     formNewCardData.name,
+    //     formNewCardData.cardNumber,
+    //     formNewCardData.expiryMonth,
+    //     ''
+    //   );
+    //   cy.checkErrorMessage('Please enter an expiry year.');
+    // });
 
-    it('TC46 - Kiểm thử thêm thẻ thanh toán mà nhập Name là khoảng trắng', () => {
-      cy.addProductToCart('Banana Juice');
-      cy.goToCartPage();
-      // chọn địa chỉ
-      cy.goToSelectAddress();
-      cy.selectAddress('Tim Tester');
-      // chọn phương thức giao hàng
-      cy.checkGoToSelectDeliveryMethod();
-      cy.goToSelectDeliveryMethod();
-      cy.selectDeliveryMethod('One Day Delivery');
-      cy.checkGoToSelectPaymentMethod();
-      cy.goToSelectPaymentMethod();
-      // chọn phương thức thanh toán
-      cy.openAddNewCard();
-      cy.fillFormAddNewCard(
-        ' ',
-        formNewCardData.cardNumber,
-        formNewCardData.expiryMonth,
-        formNewCardData.expiryYear
-      );
-      cy.checkSubmitFormAddNewCard(false)
-    });
+    // it('TC50 - Kiểm thử thêm thẻ thanh toán mà nhập Name là khoảng trắng', () => {
+    //   cy.addProductToCart('Banana Juice');
+    //   cy.goToCartPage();
+    //   // chọn địa chỉ
+    //   cy.goToSelectAddress();
+    //   cy.selectAddress('Tim Tester');
+    //   // chọn phương thức giao hàng
+    //   cy.checkGoToSelectDeliveryMethod();
+    //   cy.goToSelectDeliveryMethod();
+    //   cy.selectDeliveryMethod('One Day Delivery');
+    //   cy.checkGoToSelectPaymentMethod();
+    //   cy.goToSelectPaymentMethod();
+    //   // chọn phương thức thanh toán
+    //   cy.openAddNewCard();
+    //   cy.fillFormAddNewCard(
+    //     ' ',
+    //     formNewCardData.cardNumber,
+    //     formNewCardData.expiryMonth,
+    //     formNewCardData.expiryYear
+    //   );
+    //   cy.checkSubmitFormAddNewCard(false)
+    // });
 
-    // it('TC47 - Kiểm thử thêm thẻ thanh toán mà nhập Card Number là khoảng trắng', () => {
+    // it('TC51 - Kiểm thử thêm thẻ thanh toán mà nhập Card Number là khoảng trắng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -843,7 +910,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSubmitFormAddNewCard(false)
     // });
 
-    // it('TC48 - Kiểm thử thêm thẻ thanh toán mà nhập độ dài Card Number < 16', () => {
+    // it('TC52 - Kiểm thử thêm thẻ thanh toán mà nhập độ dài Card Number < 16', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -866,7 +933,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please enter a valid sixteen digit card number.')
     // });
 
-    // it('TC49 - Kiểm thử thêm thẻ thanh toán mà nhập độ dài Card Number > 16', () => {
+    // it('TC53 - Kiểm thử thêm thẻ thanh toán mà nhập độ dài Card Number > 16', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -889,7 +956,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessage('Please enter a valid sixteen digit card number.')
     // });
 
-    // it('TC50 - Kiểm thử nhập coupon khi mua hàng mà coupon không hợp lệ', () => {
+    // it('TC54 - Kiểm thử nhập coupon khi mua hàng mà coupon không hợp lệ', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -910,7 +977,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkErrorMessageCoupon('Invalid coupon');
     // });
 
-    // it('TC51 - Kiểm thử nhập coupon khi mua hàng mà độ dài coupon < 10', () => {
+    // it('TC55 - Kiểm thử nhập coupon khi mua hàng mà độ dài coupon < 10', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -929,7 +996,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkRedeemCoupon(false);
     // });
 
-    // it('TC52 - Kiểm thử nhập coupon khi mua hàng mà độ dài coupon > 10', () => {
+    // it('TC56 - Kiểm thử nhập coupon khi mua hàng mà độ dài coupon > 10', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -948,7 +1015,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkRedeemCoupon(false);
     // });
 
-    // it('TC53 - Kiểm thử nhập coupon khi mua hàng mà coupon hợp lệ', () => {
+    // it('TC57 - Kiểm thử nhập coupon khi mua hàng mà coupon hợp lệ', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -969,7 +1036,7 @@ describe('Juice Shop Cart Tests', () => {
     //   cy.checkSuccessMessageCoupon('Your discount of 30% will be applied during checkout.');
     // });
 
-    // it('TC54 - Kiểm thử thanh toán thành công khi mua hàng', () => {
+    // it('TC58 - Kiểm thử thanh toán thành công khi mua hàng', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ
@@ -989,7 +1056,7 @@ describe('Juice Shop Cart Tests', () => {
     // });
 
     
-    // it('TC55 - Kiểm thử thanh toán thành công khi mua hàng với mã giảm giá hợp lệ', () => {
+    // it('TC59 - Kiểm thử thanh toán thành công khi mua hàng với mã giảm giá hợp lệ', () => {
     //   cy.addProductToCart('Banana Juice');
     //   cy.goToCartPage();
     //   // chọn địa chỉ

@@ -315,6 +315,12 @@ Cypress.Commands.add('checkSuccessMessageCoupon', (successMessage) => {
     cy.get('.confirmation').should('contain', successMessage);
 });
 
+// Check text of address
+Cypress.Commands.add('checkTextShouldBeEmptyOfAddressForm', (placeholder) => {
+    const selector = `input[placeholder="${placeholder}"]`;
+    cy.get(selector).should('have.value', '');
+});
+
 // fill form add new address
 Cypress.Commands.add('fillFormAddNewAddress', (
     country,
