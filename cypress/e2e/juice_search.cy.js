@@ -43,7 +43,7 @@ describe('Kiểm thử chức năng tìm kiếm', () => {
   });
 
 
-  it.only('TK_08 - Kiểm thử tìm kiếm chỉ với dấu cách', () => {
+  it('TK_08 - Kiểm thử tìm kiếm chỉ với dấu cách', () => {
     cy.searchProduct('    ');
     cy.checkHeadingIsDisplayed('All Products');
   });
@@ -114,7 +114,7 @@ describe('Kiểm thử chức năng tìm kiếm', () => {
   });
 
 
-  it.only('TK_21 - Kiểm thử xóa từ khóa khi đăng nhập ở tài khoản khác', () => {
+  it('TK_21 - Kiểm thử xóa từ khóa khi đăng nhập ở tài khoản khác', () => {
     const searchContent = 'Juice';
     cy.searchProduct(searchContent);
     cy.checkProductIsDisplayed(searchContent);

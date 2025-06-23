@@ -497,6 +497,7 @@ Cypress.Commands.add('checkEmptyStateIsDisplayed', () => {
 
 // hide search input
 Cypress.Commands.add('hideSearchInput', () => {
+    cy.wait(500);
     cy.get('#searchQuery').click();
     cy.get('#mat-input-1').should('not.be.visible');
 });
