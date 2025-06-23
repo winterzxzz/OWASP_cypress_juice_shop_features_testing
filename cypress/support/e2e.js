@@ -24,7 +24,6 @@ before(() => {
 
 beforeEach(function () {
     // Capture the describe title on first test run
-    
     // for mat hh:mn:ss - dd/mm/yyyy
     this.startTime = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' - ' + new Date().toLocaleDateString('vi-VN');
 });
@@ -45,9 +44,6 @@ afterEach(function () {
         time: this.startTime
     });
 });
-
-
-
 
 
 
