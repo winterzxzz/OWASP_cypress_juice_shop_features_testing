@@ -1,4 +1,4 @@
-describe('Kiểm tra tìm kiếm Juice Shop', () => {
+describe('Kiểm thử chức năng tìm kiếm', () => {
   beforeEach(() => {
     cy.visit('/#/search')
     cy.wait(1000);
@@ -41,9 +41,9 @@ describe('Kiểm tra tìm kiếm Juice Shop', () => {
     cy.searchProduct('apple ');
     cy.checkProductIsDisplayed('Apple Juice');
   });
-  
 
-  it('TK_08 - Kiểm thử tìm kiếm chỉ với dấu cách', () => {
+
+  it.only('TK_08 - Kiểm thử tìm kiếm chỉ với dấu cách', () => {
     cy.searchProduct('    ');
     cy.checkHeadingIsDisplayed('All Products');
   });
@@ -73,7 +73,7 @@ describe('Kiểm tra tìm kiếm Juice Shop', () => {
 
   it('TK_13 - Kiểm thử tìm kiếm khi đang cuộn trang', () => {
     cy.get('#mat-input-1').type('Apple Juice');
-    cy.get('.mat-drawer-container').scrollTo('bottom', {ensureScrollable: false});
+    cy.get('.mat-drawer-container').scrollTo('bottom', { ensureScrollable: false });
     cy.get('#mat-input-1').type('{enter}');
     cy.checkProductIsDisplayed('Apple Juice');
   });
@@ -114,12 +114,12 @@ describe('Kiểm tra tìm kiếm Juice Shop', () => {
   });
 
 
-  it('TK_21 - Kiểm thử xóa từ khóa khi đăng nhập ở tài khoản khác', () => {
+  it.only('TK_21 - Kiểm thử xóa từ khóa khi đăng nhập ở tài khoản khác', () => {
     const searchContent = 'Juice';
     cy.searchProduct(searchContent);
     cy.checkProductIsDisplayed(searchContent);
     cy.wait(500)
-  
+
     // Login
     cy.login('jim@juice-sh.op', 'ncc-1701');
 
