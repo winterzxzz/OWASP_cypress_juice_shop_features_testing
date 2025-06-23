@@ -1,6 +1,6 @@
 const resultsCollector = require('../results');
 
-describe('Kiểm thử chức năng mua hàng', () => {
+describe('Kiểm thử chức năng đặt hàng', () => {
   const formNewAddressData = {
     country: 'Viet Nam',
     name: 'Phan Hong Quan',
